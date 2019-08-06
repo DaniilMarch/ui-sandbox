@@ -4,6 +4,7 @@ import { reduxForm } from "redux-form";
 import InputField from "./input/InputField";
 import TextAreaField from "./input/TextAreaField";
 import RadioField from "./input/RadioField";
+import CheckboxField from "./input/CheckboxField";
 
 const MainForm = ({ handleSubmit }) => {
   return (
@@ -46,6 +47,14 @@ const MainForm = ({ handleSubmit }) => {
         <RadioField
           label="Radio input"
           name="radio"
+          options={[
+            { value: "one", label: "One" },
+            { value: "two", label: "Two" }
+          ]}
+        />
+        <CheckboxField
+          label="Checkbox input"
+          name="checkbox"
           options={[
             { value: "one", label: "One" },
             { value: "two", label: "Two" }

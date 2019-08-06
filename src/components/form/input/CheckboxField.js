@@ -2,19 +2,14 @@ import React from "react";
 import { Field } from "redux-form";
 import styled from "styled-components";
 
-const RadioField = ({ options, name, className, label }) => {
+const CheckboxField = ({ className, label, options, name }) => {
   return (
     <div className={className}>
       <label className="group-label">{label}</label>
       {options.map(option => (
         <label htmlFor={option.value} className="container">
           {option.label}{" "}
-          <Field
-            component="input"
-            type="radio"
-            name={name}
-            value={option.value}
-          />
+          <Field component="input" type="checkbox" name={option.value} />
           <span className="checkmark" />
         </label>
       ))}
@@ -22,7 +17,7 @@ const RadioField = ({ options, name, className, label }) => {
   );
 };
 
-const StyledRadioField = styled(RadioField)`
+const StyledCheckboxField = styled(CheckboxField)`
   margin-bottom: 10px;
   margin-top: 10px;
 
@@ -48,15 +43,32 @@ const StyledRadioField = styled(RadioField)`
     color: rgba(0, 0, 0, 0.6);
 
     input {
+      z-index: 3px;
       position: absolute;
-      opacity: 0;
-      cursor: pointer;
       left: 0;
+      top: 0;
       width: 20px;
       height: 20px;
-      z-index: 3;
+      opacity: 0;
+      cursor: pointer;
     }
-
+    .checkmark {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: -1;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: #eee;
+    }
+    .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
     input:checked ~ .checkmark:after {
       display: block;
     }
@@ -69,32 +81,16 @@ const StyledRadioField = styled(RadioField)`
     input:hover ~ .checkmark {
       background-color: #ccc;
     }
-    .checkmark {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 2;
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 20px;
-      width: 20px;
-      background-color: #eee;
-      border-radius: 50%;
-      transition: all 0.2s ease-in;
-    }
-    .checkmark:hover {
-      background-color: #ccc;
-    }
     .checkmark:after {
-      content: "";
-      display: none;
-      height: 8px;
-      width: 8px;
-      border-radius: 50%;
-      background-color: white;
+      width: 5px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 3px 3px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
     }
   }
 `;
 
-export default StyledRadioField;
+export default StyledCheckboxField;
