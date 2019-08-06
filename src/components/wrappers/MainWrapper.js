@@ -39,6 +39,7 @@ const StyledWrapper = styled(MainWrapper)`
   .desc {
     border-bottom: 1px solid #dddddd;
     padding-bottom: 5px;
+    font-style: italic;
   }
 `;
 

@@ -5,6 +5,7 @@ import "normalize.css";
 import store from "./store";
 import MainWrapper from "./components/wrappers/MainWrapper";
 import MainForm from "./components/form";
+import Sliders from "./components/sliders";
 
 const App = () => {
   return (
@@ -14,6 +15,9 @@ const App = () => {
       </MainWrapper>
       <MainWrapper header="Main form" desc="Form description">
         <MainForm />
+      </MainWrapper>
+      <MainWrapper header="Sliders">
+        <Sliders />
       </MainWrapper>
     </Provider>
   );

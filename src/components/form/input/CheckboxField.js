@@ -7,7 +7,7 @@ const CheckboxField = ({ className, label, options, name }) => {
     <div className={className}>
       <label className="group-label">{label}</label>
       {options.map(option => (
-        <label htmlFor={option.value} className="container">
+        <label htmlFor={option.value} className="container" key={option.value}>
           {option.label}{" "}
           <Field component="input" type="checkbox" name={option.value} />
           <span className="checkmark" />

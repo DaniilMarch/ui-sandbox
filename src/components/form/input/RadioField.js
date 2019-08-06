@@ -7,7 +7,7 @@ const RadioField = ({ options, name, className, label }) => {
     <div className={className}>
       <label className="group-label">{label}</label>
       {options.map(option => (
-        <label htmlFor={option.value} className="container">
+        <label htmlFor={option.value} className="container" key={option.value}>
           {option.label}{" "}
           <Field
             component="input"

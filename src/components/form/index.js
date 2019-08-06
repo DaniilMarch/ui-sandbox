@@ -1,21 +1,30 @@
 import React from "react";
 import { reduxForm } from "redux-form";
+import { FaEnvelope } from "react-icons/fa";
+import { connect } from "react-redux";
 
 import InputField from "./input/InputField";
 import TextAreaField from "./input/TextAreaField";
 import RadioField from "./input/RadioField";
 import CheckboxField from "./input/CheckboxField";
+import { submitForm } from "../../actions/formActions";
 
-const MainForm = ({ handleSubmit }) => {
+const MainForm = ({ handleSubmit, submitForm }) => {
   return (
     <div>
-      <form noValidate onSubmit={handleSubmit(formValues => {})}>
+      <form
+        noValidate
+        onSubmit={handleSubmit(formValues => submitForm(formValues))}
+      >
         <InputField
           name="email"
           label="Email"
+          id="Email"
           validationParams={{ email: true, required: true }}
           placeholder="Your email"
           type="email"
+          inline
+          icon={<FaEnvelope />}
         />
         <InputField
           name="username"
@@ -60,6 +69,7 @@ const MainForm = ({ handleSubmit }) => {
             { value: "two", label: "Two" }
           ]}
         />
+        <button>Submit</button>
       </form>
     </div>
   );
@@ -67,4 +77,11 @@ const MainForm = ({ handleSubmit }) => {
 
 const formConnected = reduxForm({ form: "main" })(MainForm);
 
-export default formConnected;
+const mapStateToProps = state => {
+  return {};
+};
+
+export default connect(
+  mapStateToProps,
+  { submitForm }
+)(formConnected);

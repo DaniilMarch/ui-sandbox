@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Field } from "redux-form";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import cn from "classnames";
 
-import { validateInput, clearError } from "../../../actions/formActions";
+import {
+  validateField,
+  clearError,
+  fieldMount,
+  fieldUnmount
+} from "../../../actions/formActions";
 
 const TextAreaField = ({
   label,
@@ -15,8 +20,14 @@ const TextAreaField = ({
   validationParams,
   fieldError,
   clearError,
-  validateInput
+  validateField,
+  fieldMount,
+  fieldUnmount
 }) => {
+  useEffect(() => {
+    fieldMount(name, label, validationParams);
+    return () => fieldUnmount(name);
+  }, []);
   return (
     <div>
       <div className={className}>
@@ -28,7 +39,7 @@ const TextAreaField = ({
           name={name}
           onBlur={(event, newValue) => {
             if (validationParams) {
-              validateInput(name, newValue, label, validationParams);
+              validateField(name, newValue, label, validationParams);
             }
           }}
           onChange={() => clearError(name)}
@@ -92,5 +103,5 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(
   mapStateToProps,
-  { validateInput, clearError }
+  { validateField, clearError, fieldMount, fieldUnmount }
 )(StyledTextAreaField);
