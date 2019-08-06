@@ -3,7 +3,10 @@ import validator from "validator";
 
 import isEmpty from "../utils/isEmpty";
 
-export const validateInput = (name, value, label, validationParams) => {
+export const validateInput = (name, value, label, validationParams) => (
+  dispatch,
+  getState
+) => {
   const errors = {};
   value = isEmpty(value) ? "" : value;
   if (validationParams.email) {
@@ -21,11 +24,29 @@ export const validateInput = (name, value, label, validationParams) => {
       errors.value = "URL incorrect";
     }
   }
+
+  if (validationParams.length) {
+    if (!validator.isLength(value, validationParams.length)) {
+      errors.value = `${label} must be between ${
+        validationParams.length.min
+      } and ${validationParams.length.max} symbols`;
+    }
+  }
+
+  if (validationParams.match) {
+    const valueToMatch = getState().form.main.values[
+      validationParams.match.valueToMatch
+    ];
+    if (!validator.equals(value, valueToMatch) && valueToMatch) {
+      errors.value = `${validationParams.match.label} must match`;
+    }
+  }
+
   if (isEmpty(errors)) {
-    return { type: CLEAR_ERROR, payload: name };
+    dispatch({ type: CLEAR_ERROR, payload: name });
   } else {
     errors.name = name;
-    return { type: ADD_ERROR, payload: errors };
+    dispatch({ type: ADD_ERROR, payload: errors });
   }
 };
 

@@ -12,10 +12,10 @@ const InputField = ({
   type,
   placeholder,
   className,
-  validateInput,
   validationParams,
   fieldError,
-  clearError
+  clearError,
+  validateInput
 }) => {
   return (
     <div className={className}>
@@ -31,7 +31,7 @@ const InputField = ({
         onChange={() => clearError(name)}
         className={cn({ invalid: fieldError })}
       />
-      {fieldError && <div className="error-display">{fieldError}</div>}
+      <div className="error-display">{fieldError}</div>
     </div>
   );
 };
@@ -40,7 +40,8 @@ const StyledInputField = styled(InputField)`
   label {
     display: block;
     font-size: 1.5rem;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+    margin-top: 10px;
     opacity: 0.6;
   }
   input {
@@ -54,12 +55,36 @@ const StyledInputField = styled(InputField)`
   }
   input:focus {
     outline: none;
+    border: 1px solid skyblue;
+  }
+  input::placeholder {
+    opacity: 0.2;
   }
   .invalid {
     border: 1px solid indianred;
   }
   .error-display {
     color: indianred;
+    margin-bottom: 10px;
+    height: 16px;
+  }
+  @media (max-width: 768px) {
+    label {
+      margin-left: auto;
+      margin-right: auto;
+      width: 60%;
+      text-align: center;
+    }
+    input {
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .error-display {
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 `;
 
