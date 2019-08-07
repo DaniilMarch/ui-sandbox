@@ -1,29 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import clamp from "../../utils/clamp";
+import { clamp } from "../../utils/clamp";
 import ghost from "./ghost.png";
-
-const Handle = styled.div.attrs(props => ({ style: { left: props.offset } }))`
-  height: ${props => props.size + "px"};
-  width: ${props => props.size + "px"};
-  top: ${props => -(props.size - props.sliderHeight) / 2 + "px"};
-  position: absolute;
-  border-radius: 50%;
-  border: 1px solid #dddd;
-  background-color: skyblue;
-  cursor: pointer;
-`;
-
-const Background = styled.div.attrs(props => ({
-  style: { width: props.width + "px" }
-}))`
-  position: absolute;
-  height: ${props => props.height + "px"};
-  border-radius: ${props => props.height / 2 + "px"};
-  background-color: ${props => props.color};
-  left: 0px;
-`;
+import Background from "./Background";
+import Handle from "./Handle";
 
 const setDragImage = event => {
   const img = document.createElement("img");
@@ -93,6 +74,8 @@ const StyledSimpleySlide = styled(SimpleSlider)`
   border-radius: ${props => props.height / 2 + "px"};
   position: relative;
   box-sizing: border-box;
+  margin-top: 20px;
+  margin-bottom: 20px;
 `;
 
 export default StyledSimpleySlide;
